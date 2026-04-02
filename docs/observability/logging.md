@@ -47,7 +47,7 @@ For most use cases, simply using `logging.getLogger(__name__)` is the common fir
 !!! note
     - It's important to set the logging level before importing Daft, as the underlying Rust components will not pick up level changes that occur after the import.
 
-    - The `setup_logger()` doesn't have the above mentioned side effects. The ` refresh_logger()` will been called to synchronize the configuration with the Rust backend if use `setup_logger()`.
+    - The `setup_logger()` doesn't have the above mentioned side effects. The `refresh_logger()` will be called to synchronize the configuration with the Rust backend when using `setup_logger()`.
 ## Remote Execution
 
 When running Daft on a Ray cluster, logging is more complex due to the distributed nature of the system. Logs can be emitted from the driver process (where you call `ray.init()`) or from the worker processes (where the actual data processing happens).
@@ -111,8 +111,8 @@ import daft
 # A setup hook to configure logging on each worker
 def configure_logging():
     from daft.logging import setup_logger
-    # Example of setting Daft module to INFO level except for daft_distributed module
-    setup_logger(level="INFO", exclude_prefix=["daft_distributed"])
+    # Example of setting Daft module to INFO level except for daft.distributed module
+    setup_logger(level="INFO", exclude_prefix=["daft.distributed"])
 
 
 configure_logging()
@@ -134,7 +134,7 @@ ray.init(
 )
 ```
 
-Note that in the above example, we configure logging before importing Daft to ensure the Rust components pick up the logging level changes.
+Note that `setup_logger()` calls `refresh_logger()` internally to synchronize the configuration with the Rust backend.
 
 !!! note "A Note on Rust Tracing"
     While Daft's Python side uses the standard `logging` module, the core Rust components use the `tracing` library for structured, high-performance logging. When debugging performance-critical sections of Daft, you may find it useful to enable `tracing` logs, which can provide more detailed insights into the execution of the underlying query engine.

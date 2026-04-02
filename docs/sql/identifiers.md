@@ -1,6 +1,6 @@
 # Identifiers
 
-Daft's SQL identifiers are **case-insensitive by default**, but support a case-sensitive and a case-normalize mode. For both the case-insensitive and case-sensitive modes, identifiers are case-preserved and are matched based upon the mode. For the case-normalize mode, unquoted (regular) identifiers are normalized to lowercase and double-quoted (delimited) identifiers are case-preserved. You can configure these modes by setting the `identifer_mode` session option. These modes apply when resolving attached catalogs, attached tables, and columns via the session.
+Daft's SQL identifiers are **case-insensitive by default**, but support a case-sensitive and a case-normalize mode. For both the case-insensitive and case-sensitive modes, identifiers are case-preserved and are matched based upon the mode. For the case-normalize mode, unquoted (regular) identifiers are normalized to lowercase and double-quoted (delimited) identifiers are case-preserved. You can configure these modes by setting the `identifier_mode` session option. These modes apply when resolving attached catalogs, attached tables, and columns via the session.
 
 !!! warning "Warning"
 
@@ -74,5 +74,5 @@ sess.set_option("identifier_mode", "sensitive")
 
 SET identifier_mode = 'insensitive';  -- duckdb, spark, unity
 SET identifier_mode = 'sensitive';    -- python, iceberg
-SET identifier_mode = 'normalized';   -- postgres, datafusion, standard
+SET identifier_mode = 'normalize';    -- postgres, datafusion, standard
 ```

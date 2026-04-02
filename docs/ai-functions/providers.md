@@ -71,7 +71,7 @@ import os
 
 # Set up the Google provider with your API key
 with daft.session() as session:
-    session.set_provider("google", api_key=os.environ["GOOGLE_API_KEY"])
+    daft.set_provider("google", api_key=os.environ["GOOGLE_API_KEY"])
 
     # Create a DataFrame with questions
     df = daft.from_pydict({
